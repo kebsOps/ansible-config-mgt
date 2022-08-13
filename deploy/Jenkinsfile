@@ -16,7 +16,6 @@
           sh 'echo "Testing Stage"'
         }
       }
-    }
-    
+    } 
     }
 }
