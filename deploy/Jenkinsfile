@@ -9,39 +9,5 @@
         }
       }
     }
-
-    stage('Test') {
-      steps {
-        script {
-          sh 'echo "Testing Stage"'
-        }
-      }
-    }
-
-   stage('Package'){
-     steps {
-       script {
-	 sh 'echo "Packaging Stage"'
-       }
-     }
-   }
-
-  stage('Deploy'){
-     steps {
-       script {
-         sh 'echo "Deloying Stage"'
-       }
-     }
-   }
-  
- stage('Clean Up'){
-     steps {
-       script {
-         sh 'echo "Cleaning up Stage"'
-       }
-     }
-   }
-
-
-    }
-}
+  }
+ }
