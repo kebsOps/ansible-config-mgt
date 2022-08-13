@@ -1,0 +1,8 @@
+---
+# defaults file for ngnix
+enable_nginx_lb: false
+load_balancer_is_required: false
+
+#IP Mapping for web1 and web2
+Web1: 172.31.40.69
+Web2: 172.31.40.72
