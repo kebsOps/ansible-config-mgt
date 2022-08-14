@@ -1,48 +1,42 @@
 pipeline {
     agent any
 
-    parameters {
-        string (name: 'env', defaultValue: 'dev.yml',  description: 'This is the inventory file for the environment to deploy configuration')
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          sh 'echo "Building Stage"'
         }
+      }
+    }
 
-    environment {
-        ANSIBLE_CONFIG="${WORKSPACE}/deploy/.ansible.cfg"
-            }
-
-    
-
-    stages {
-        stage("Initial cleanup") {
-            steps {
-                dir("${WORKSPACE}") {
-                deleteDir()
-                    }
-                }
-            }
-
-        stage ('Checkout SCM') {
-            steps{
-                git branch: 'main', url: 'https://github.com/kebsOps/ansible-config-mgt.git'
-            }
+    stage('Test') {
+      steps {
+        script {
+          sh 'echo "Testing Stage"'
         }
-
-        stage ('Prepare Ansible For Execution') {
-            steps {
-            sh 'echo ${WORKSPACE}' 
-            sh 'sed -i "3 a roles_path=${WORKSPACE}/roles" ${WORKSPACE}/deploy/ansible.cfg'  
-            }
+      }
+    }
+    stage('Package') {
+      steps {
+        script {
+          sh 'echo "Packaging Stage"'
         }
-
-        stage ('Run Ansible playbook') {
-            steps {
-            ansiblePlaybook become: true, colorized: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory/${env}', playbook: 'playbooks/site.yml'
-            }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        script {
+          sh 'echo "Deployment Stage"'
         }
-
-        stage ('Clean Workspace after build') {
-            steps {
-            cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenUnstable: true, deleteDirs: true)
-            }
+      }
+    }
+    stage('Clean up') {
+      steps {
+        script {
+          sh 'echo "clean up"'
         }
+      }
+    }
     }
 }
