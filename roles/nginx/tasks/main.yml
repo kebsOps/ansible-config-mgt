@@ -1,37 +1,22 @@
-
-# tasks file for ngnix
-
-
 ---
-
+# tasks file for ngnix
 - name: Install nginx
   become: yes
-  apt:
+  yum:
     name: nginx
     state: present
 
-
-
-- name: start nginx
-  become: yes
+- name: start nginx and ensure it's enabled
   service:
     name: nginx
     state: started
+    enabled: yes
 
-- name: Insert configuration file in server block
-  become: yes
-  blockinfile:
-     path: /etc/nginx/nginx.conf
-     block: "{{ lookup('file', '../templates/nginx.conf' ) }}"
-     insertafter: "http {"
-
-
-- name: Comment out site-enabled
-  become: yes
-  replace:
-     path: /etc/nginx/nginx.conf
-     regexp: '(.*enabled.*)'
-     replace: '#\1'
-
-  notify: Restart nginx service
-
+- name: Install PHP
+  yum:
+    name:
+      - php
+      - php-mysqlnd
+      - php-gd
+      - php-curl
+    state: present
