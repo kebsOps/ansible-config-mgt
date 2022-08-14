@@ -1,3 +1,3 @@
-# Activate apache LB here:
- enable_apache_lb: true
- load_balancer_is_required: true
+# Activate nginx LB here:
+ enable_nginx_lb: true
+load_balancer_is_required: true
